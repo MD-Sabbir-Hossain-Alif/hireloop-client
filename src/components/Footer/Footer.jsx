@@ -2,149 +2,174 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import {
-    LogoFacebook,
-    LogoInstagram,
-    LogoLinkedin,
-    LogoTwitter,
-} from "@gravity-ui/icons";
-
-const socialLinks = [
-    {
-        name: "Twitter",
-        href: "https://twitter.com",
-        icon: LogoTwitter,
-    },
-    {
-        name: "LinkedIn",
-        href: "https://linkedin.com",
-        icon: LogoLinkedin,
-    },
-    {
-        name: "Instagram",
-        href: "https://instagram.com",
-        icon: LogoInstagram,
-    },
-    {
-        name: "Facebook",
-        href: "https://facebook.com",
-        icon: LogoFacebook,
-    },
-];
-
-const footerLinks = [
-    {
-        title: "Company",
-        links: [
-            { name: "About", href: "/about" },
-            { name: "Careers", href: "/careers" },
-            { name: "Contact", href: "/contact" },
-        ],
-    },
-    {
-        title: "Resources",
-        links: [
-            { name: "Browse Jobs", href: "/jobs" },
-            { name: "Pricing", href: "/pricing" },
-            { name: "Help Center", href: "/help" },
-        ],
-    },
-];
+import { FaFacebookF, FaLinkedinIn } from "react-icons/fa";
+import { FaPinterestP } from "react-icons/fa6";
 
 const Footer = () => {
     return (
-        <footer className="mt-20 border-t border-white/10 bg-[#0b0b0f] px-4">
-            <div className="container mx-auto py-12">
-                <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-                    {/* Brand */}
-                    <div className="lg:col-span-2">
-                        <Link href="/" className="flex items-center gap-3">
-                            <div className="relative flex h-11 w-32 items-center justify-center overflow-hidden rounded-2xl bg-white/5 shadow-lg">
-                                <Image
-                                    src="/images/logo.png"
-                                    alt="hire loop logo"
-                                    fill
-                                    className="object-contain p-2"
-                                />
-                            </div>
+        <footer className="relative overflow-hidden bg-black text-white">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-20">
+                <div
+                    className="h-full w-full"
+                    style={{
+                        backgroundImage:
+                            "radial-gradient(circle at top center, rgba(99,102,241,0.25), transparent 40%)",
+                    }}
+                />
+            </div>
 
-                            <div className="leading-tight">
-                                <h1 className="text-lg font-semibold tracking-tight text-white">
-                                    Hire
-                                </h1>
-                                <p className="-mt-1 text-sm text-white/80">
-                                    Loop
-                                </p>
-                            </div>
+            <div className="relative container mx-auto px-6 py-16">
+                <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
+                    {/* Brand */}
+                    <div>
+                        <Link href="/" className="flex items-center gap-3">
+                            <Image
+                                src="/images/logo.png"
+                                alt="HireLoop"
+                                width={160}
+                                height={50}
+                                className="object-contain"
+                            />
                         </Link>
 
-                        <p className="mt-5 max-w-md text-sm leading-7 text-white/60">
-                            HireLoop helps companies connect with top talent
-                            faster through a modern and seamless hiring
-                            experience.
+                        <p className="mt-8 max-w-sm text-base leading-8 text-white/50">
+                            The AI-native career platform. Built for people who
+                            take their work seriously.
                         </p>
 
                         {/* Socials */}
-                        <div className="mt-6 flex items-center gap-4">
-                            {socialLinks.map((social) => {
-                                const Icon = social.icon;
+                        <div className="mt-12 flex gap-3">
+                            <Link
+                                href="https://facebook.com"
+                                target="_blank"
+                                className="flex h-11 w-11 items-center justify-center rounded-lg bg-white/10 text-white transition hover:bg-indigo-500"
+                            >
+                                <FaFacebookF />
+                            </Link>
 
-                                return (
-                                    <Link
-                                        key={social.name}
-                                        href={social.href}
-                                        target="_blank"
-                                        className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white/70 transition hover:border-fuchsia-500/30 hover:bg-fuchsia-500/10 hover:text-fuchsia-400"
-                                    >
-                                        <Icon className="size-5" />
-                                    </Link>
-                                );
-                            })}
+                            <Link
+                                href="https://pinterest.com"
+                                target="_blank"
+                                className="flex h-11 w-11 items-center justify-center rounded-lg bg-indigo-600 text-white"
+                            >
+                                <FaPinterestP />
+                            </Link>
+
+                            <Link
+                                href="https://linkedin.com"
+                                target="_blank"
+                                className="flex h-11 w-11 items-center justify-center rounded-lg bg-white/10 text-white transition hover:bg-indigo-500"
+                            >
+                                <FaLinkedinIn />
+                            </Link>
                         </div>
                     </div>
 
-                    {/* Footer Links */}
-                    {footerLinks.map((section) => (
-                        <div key={section.title}>
-                            <h3 className="mb-5 text-sm font-semibold uppercase tracking-wider text-white">
-                                {section.title}
-                            </h3>
+                    {/* Product */}
+                    <div>
+                        <h3 className="mb-6 text-lg font-medium text-indigo-500">
+                            Product
+                        </h3>
 
-                            <div className="flex flex-col gap-4">
-                                {section.links.map((link) => (
-                                    <Link
-                                        key={link.name}
-                                        href={link.href}
-                                        className="text-sm text-white/60 transition hover:text-fuchsia-400"
-                                    >
-                                        {link.name}
-                                    </Link>
-                                ))}
-                            </div>
+                        <div className="space-y-4 text-white/60">
+                            <Link
+                                href="/jobs"
+                                className="block hover:text-white"
+                            >
+                                Job discovery
+                            </Link>
+
+                            <Link
+                                href="/worker-ai"
+                                className="block hover:text-white"
+                            >
+                                Worker AI
+                            </Link>
+
+                            <Link
+                                href="/companies"
+                                className="block hover:text-white"
+                            >
+                                Companies
+                            </Link>
+
+                            <Link
+                                href="/salary-data"
+                                className="block hover:text-white"
+                            >
+                                Salary data
+                            </Link>
                         </div>
-                    ))}
+                    </div>
+
+                    {/* Navigation */}
+                    <div>
+                        <h3 className="mb-6 text-lg font-medium text-indigo-500">
+                            Navigations
+                        </h3>
+
+                        <div className="space-y-4 text-white/60">
+                            <Link
+                                href="/help"
+                                className="block hover:text-white"
+                            >
+                                Help center
+                            </Link>
+
+                            <Link
+                                href="/career-library"
+                                className="block hover:text-white"
+                            >
+                                Career library
+                            </Link>
+
+                            <Link
+                                href="/contact"
+                                className="block hover:text-white"
+                            >
+                                Contact
+                            </Link>
+                        </div>
+                    </div>
+
+                    {/* Resources */}
+                    <div>
+                        <h3 className="mb-6 text-lg font-medium text-indigo-500">
+                            Resources
+                        </h3>
+
+                        <div className="space-y-4 text-white/60">
+                            <Link
+                                href="/brand-guideline"
+                                className="block hover:text-white"
+                            >
+                                Brand Guideline
+                            </Link>
+
+                            <Link
+                                href="/newsroom"
+                                className="block hover:text-white"
+                            >
+                                Newsroom
+                            </Link>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Bottom */}
-                <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-center md:flex-row">
-                    <p className="text-sm text-white/50">
-                        © {new Date().getFullYear()} HireLoop. All rights
-                        reserved.
+                <div className="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 md:flex-row md:items-center md:justify-between">
+                    <p className="text-sm text-white/40">
+                        Copyright {new Date().getFullYear()} — HireLoop
                     </p>
 
-                    <div className="flex items-center gap-6">
-                        <Link
-                            href="/privacy"
-                            className="text-sm text-white/50 transition hover:text-white"
-                        >
-                            Privacy Policy
+                    <div className="flex gap-6 text-sm text-white/40">
+                        <Link href="/terms" className="hover:text-white">
+                            Terms & Policy
                         </Link>
 
-                        <Link
-                            href="/terms"
-                            className="text-sm text-white/50 transition hover:text-white"
-                        >
-                            Terms of Service
+                        <Link href="/privacy" className="hover:text-white">
+                            Privacy Guideline
                         </Link>
                     </div>
                 </div>

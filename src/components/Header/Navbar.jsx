@@ -18,10 +18,10 @@ const Navbar = () => {
 
     return (
         <nav className="px-4">
-            <div className="mx-auto flex container items-center justify-between rounded-2xl py-6">
+            <div className="flex items-center justify-between rounded-2xl py-6">
                 {/* Logo */}
                 <Link href="/" className="flex items-center gap-3">
-                    <div className="relative flex h-11 w-32 items-center justify-center overflow-hidden rounded-2xl bg-white/2 shadow-lg">
+                    <div className="relative flex h-11 w-32 items-center justify-center overflow-hidden rounded-2xl bg-transparent shadow-lg">
                         <Image
                             src="/images/logo.png"
                             alt="hire loop logo"
@@ -30,12 +30,12 @@ const Navbar = () => {
                         />
                     </div>
 
-                    <div className="leading-tight">
+                    {/* <div className="leading-tight">
                         <h1 className="text-lg font-semibold tracking-tight text-white">
                             Hire
                         </h1>
                         <p className="-mt-1 text-sm text-white/80">Loop</p>
-                    </div>
+                    </div> */}
                 </Link>
 
                 {/* Desktop Menu */}
