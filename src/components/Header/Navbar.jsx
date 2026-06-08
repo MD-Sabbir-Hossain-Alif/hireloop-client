@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Button } from "@heroui/react";
+import { Button, Spinner } from "@heroui/react";
 import NavLink from "./NavLink";
 import { Bars, Xmark } from "@gravity-ui/icons";
 import Image from "next/image";
+import { authClient } from "@/lib/auth-client";
 
 const navLinks = [
     { name: "Browse Jobs", href: "/jobs" },
@@ -15,6 +16,10 @@ const navLinks = [
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { data: session, isPending } = authClient.useSession();
+    const user = session?.user;
+
+    // console.log("user data:", user);
 
     return (
         <nav className="px-4">
@@ -83,7 +88,17 @@ const Navbar = () => {
 
                         <div className="h-px bg-white/10" />
 
-                        <NavLink href="/signin">Sign In</NavLink>
+                        {isPending ? (
+                            <div className="flex items-center gap-4">
+                                <Spinner />
+                            </div>
+                        ) : user ? (
+                            <p className="text-center text-sm text-white/50">
+                                Welcome, {user.name}!
+                            </p>
+                        ) : (
+                            <NavLink href="/signin">Sign In</NavLink>
+                        )}
 
                         <Button
                             radius="xl"

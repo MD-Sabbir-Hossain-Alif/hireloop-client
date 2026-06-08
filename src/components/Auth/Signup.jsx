@@ -1,15 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import {
-    Button,
-    Card,
-    Input,
-    Label,
-    TextField,
-    Link,
-    Checkbox,
-} from "@heroui/react";
+import { useRouter } from "next/navigation";
+import { Button, Card, Input, Label, TextField, Link } from "@heroui/react";
+import { authClient } from "@/lib/auth-client";
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -19,30 +13,43 @@ const Register = () => {
         confirmPassword: "",
     });
     const [isLoading, setIsLoading] = useState(false);
-    const [acceptTerms, setAcceptTerms] = useState(false);
+    const [error, setError] = useState("");
+    const router = useRouter();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setError("");
+
         if (formData.password !== formData.confirmPassword) {
-            alert("Passwords don't match!");
-            return;
-        }
-        if (!acceptTerms) {
-            alert("Please accept the terms");
+            setError("Passwords don't match");
             return;
         }
 
         setIsLoading(true);
 
-        setTimeout(() => {
-            console.log("Register attempt:", formData);
-            alert("Account created successfully! (Demo)");
+        try {
+            const { error: signUpError } = await authClient.signUp.email({
+                name: formData.name,
+                email: formData.email,
+                password: formData.password,
+                // callbackURL: "/dashboard", // optional
+            });
+
+            if (signUpError) {
+                setError(signUpError.message || "Failed to create account");
+            } else {
+                // Better Auth usually auto signs in or redirects
+                router.push("/");
+            }
+        } catch (err) {
+            setError("Something went wrong. Please try again.");
+        } finally {
             setIsLoading(false);
-        }, 1500);
+        }
     };
 
     return (
@@ -55,6 +62,12 @@ const Register = () => {
 
                 <Card.Content>
                     <form onSubmit={handleSubmit} className="space-y-4">
+                        {error && (
+                            <p className="text-red-500 text-sm text-center">
+                                {error}
+                            </p>
+                        )}
+
                         <TextField>
                             <Label>Full Name</Label>
                             <Input
