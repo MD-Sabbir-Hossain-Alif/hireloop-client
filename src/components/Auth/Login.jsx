@@ -57,7 +57,7 @@ const Login = () => {
                             <Label>Email</Label>
                             <Input
                                 type="email"
-                                placeholder="you@example.com"
+                                placeholder="johndoe@gmail.com"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
@@ -68,7 +68,7 @@ const Login = () => {
                             <Label>Password</Label>
                             <Input
                                 type="password"
-                                placeholder="••••••••"
+                                placeholder="Enter your password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
@@ -96,7 +96,7 @@ const Login = () => {
                     <div className="text-center text-sm text-zinc-500">
                         Don&apos;t have an account?{" "}
                         <Link
-                            href="/register"
+                            href="/signup"
                             className="text-primary hover:underline"
                         >
                             Sign up

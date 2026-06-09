@@ -4,13 +4,14 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button, Card, Input, Label, TextField, Link } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
+import { Radio, RadioGroup } from "@heroui/react";
 
 const Register = () => {
     const [formData, setFormData] = useState({
-        name: "",
-        email: "",
+        name: "John Doe",
+        email: "johndoe@gmail.com",
         password: "",
-        confirmPassword: "",
+        role: "seeker",
     });
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
@@ -24,11 +25,6 @@ const Register = () => {
         e.preventDefault();
         setError("");
 
-        if (formData.password !== formData.confirmPassword) {
-            setError("Passwords don't match");
-            return;
-        }
-
         setIsLoading(true);
 
         try {
@@ -37,6 +33,7 @@ const Register = () => {
                 email: formData.email,
                 password: formData.password,
                 // callbackURL: "/dashboard", // optional
+                role: formData.role, // custom field for RBAC
             });
 
             if (signUpError) {
@@ -84,7 +81,7 @@ const Register = () => {
                             <Input
                                 type="email"
                                 name="email"
-                                placeholder="you@example.com"
+                                placeholder="johndoe@gmail.com"
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
@@ -96,24 +93,42 @@ const Register = () => {
                             <Input
                                 type="password"
                                 name="password"
-                                placeholder="••••••••"
+                                placeholder="Enter your password"
                                 value={formData.password}
                                 onChange={handleChange}
                                 required
                             />
                         </TextField>
 
-                        <TextField>
-                            <Label>Confirm Password</Label>
-                            <Input
-                                type="password"
-                                name="confirmPassword"
-                                placeholder="••••••••"
-                                value={formData.confirmPassword}
-                                onChange={handleChange}
-                                required
-                            />
-                        </TextField>
+                        {/* RBAC */}
+                        <RadioGroup
+                            defaultValue="seeker"
+                            name="role"
+                            onChange={(value) =>
+                                setFormData((prev) => ({
+                                    ...prev,
+                                    role: value,
+                                }))
+                            }
+                            orientation="horizontal"
+                        >
+                            <Radio value="seeker">
+                                <Radio.Control>
+                                    <Radio.Indicator />
+                                </Radio.Control>
+                                <Radio.Content>
+                                    <Label>Job Seeker</Label>
+                                </Radio.Content>
+                            </Radio>
+                            <Radio value="recruiter">
+                                <Radio.Control>
+                                    <Radio.Indicator />
+                                </Radio.Control>
+                                <Radio.Content>
+                                    <Label>Recruiter</Label>
+                                </Radio.Content>
+                            </Radio>
+                        </RadioGroup>
 
                         <Button type="submit" fullWidth isPending={isLoading}>
                             {isLoading

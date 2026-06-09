@@ -53,7 +53,22 @@ const Navbar = () => {
 
                     <div className="h-6 w-px bg-white/10" />
 
-                    <NavLink href="/signin">Sign In</NavLink>
+                    {isPending ? (
+                        <div className="flex items-center gap-4">
+                            <Spinner />
+                        </div>
+                    ) : user ? (
+                        <div className="flex items-center gap-4">
+                            <p className="text-center text-sm font-medium text-white">
+                                Welcome, {user.name}
+                            </p>
+                            <Button onClick={() => authClient.signOut()}>
+                                Log Out
+                            </Button>
+                        </div>
+                    ) : (
+                        <NavLink href="/signin">Sign In</NavLink>
+                    )}
 
                     <Button
                         radius="xl"
@@ -93,9 +108,14 @@ const Navbar = () => {
                                 <Spinner />
                             </div>
                         ) : user ? (
-                            <p className="text-center text-sm text-white/50">
-                                Welcome, {user.name}!
-                            </p>
+                            <div className="flex items-center gap-4">
+                                <p className="text-center text-sm font-medium text-white">
+                                    Welcome, {user.name}
+                                </p>
+                                <Button onClick={() => authClient.signOut()}>
+                                    Log Out
+                                </Button>
+                            </div>
                         ) : (
                             <NavLink href="/signin">Sign In</NavLink>
                         )}
