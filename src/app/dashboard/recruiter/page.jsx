@@ -1,5 +1,6 @@
 "use client";
 
+import AppTable from "@/components/Dashboard/AppTable";
 import { DashboardStats } from "@/components/Dashboard/DashboardStats";
 import { authClient } from "@/lib/auth-client";
 import {
@@ -10,10 +11,10 @@ import {
 } from "@gravity-ui/icons";
 
 const page = () => {
-    const { data, isPending } = authClient.useSession();
+    const { data } = authClient.useSession();
 
-    if (isPending) {
-        return <div>Loading...</div>;
+    if (!data) {
+        return "Loading...";
     }
 
     const recruiterStats = [
@@ -24,12 +25,13 @@ const page = () => {
     ];
 
     const user = data?.user;
-    console.log(user);
+    // console.log(user);
 
     return (
         <div>
             <h2 className="text-4xl">Welcome back, {user?.name}</h2>
             <DashboardStats statsData={recruiterStats} />
+            <AppTable />
         </div>
     );
 };
