@@ -79,7 +79,7 @@ export default function PostJobPage() {
             toast.success("Job posted successfully!");
             e.target.reset();
             setIsRemote(false);
-            redirect("/dashboard/recruiter/jobs");
+            // redirect("/dashboard/recruiter/jobs");
         }
     };
 
