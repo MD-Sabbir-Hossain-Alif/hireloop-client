@@ -1,4 +1,3 @@
-import React from "react";
 import CompanyProfile from "./CompanyProfile";
 import { getUserSession } from "@/lib/core/session";
 import { getRecruiterCompany } from "@/lib/api/companies";
