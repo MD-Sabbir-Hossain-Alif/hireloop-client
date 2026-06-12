@@ -9,9 +9,18 @@ import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
 
 const navLinks = [
-    { name: "Browse Jobs", href: "/jobs" },
-    { name: "Company", href: "/company" },
-    { name: "Pricing", href: "/pricing" },
+    {
+        label: "Browse Jobs",
+        href: "/jobs",
+    },
+    {
+        label: "Companies",
+        href: "/companies",
+    },
+    {
+        label: "Pricing",
+        href: "/pricing",
+    },
 ];
 
 const Navbar = () => {
@@ -46,8 +55,8 @@ const Navbar = () => {
                 {/* Desktop Menu */}
                 <div className="hidden items-center gap-8 rounded-2xl border border-white/5 bg-white/2 px-6 py-3 md:flex">
                     {navLinks.map((item) => (
-                        <NavLink key={item.name} href={item.href}>
-                            {item.name}
+                        <NavLink key={item.label} href={item.href}>
+                            {item.label}
                         </NavLink>
                     ))}
 
