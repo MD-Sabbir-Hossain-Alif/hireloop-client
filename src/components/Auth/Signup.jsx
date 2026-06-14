@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button, Card, Input, Label, TextField, Link } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 import { Radio, RadioGroup } from "@heroui/react";
@@ -16,6 +16,8 @@ const Register = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirectTo = searchParams.get("redirect") || "/";
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -40,7 +42,7 @@ const Register = () => {
                 setError(signUpError.message || "Failed to create account");
             } else {
                 // Better Auth usually auto signs in or redirects
-                router.push("/");
+                router.push(redirectTo);
             }
         } catch (err) {
             setError("Something went wrong. Please try again.");
@@ -142,7 +144,7 @@ const Register = () => {
                     <div className="text-center text-sm text-zinc-500">
                         Already have an account?{" "}
                         <Link
-                            href="/signin"
+                            href={`/signin?redirect=${redirectTo}`}
                             className="text-primary hover:underline"
                         >
                             Sign in

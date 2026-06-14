@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button, Card, Input, Label, TextField, Link } from "@heroui/react";
 import { authClient, signIn } from "@/lib/auth-client";
 
@@ -13,6 +13,8 @@ const Login = () => {
     const [error, setError] = useState("");
 
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirectTo = searchParams.get("redirect") || "/";
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,7 +31,7 @@ const Login = () => {
             if (signInError) {
                 setError(signInError.message || "Invalid credentials");
             } else {
-                router.push("/"); // wherever you want to redirect
+                router.push(redirectTo); // wherever you want to redirect
             }
         } catch (err) {
             setError("Something went wrong. Please try again.");
@@ -96,7 +98,7 @@ const Login = () => {
                     <div className="text-center text-sm text-zinc-500">
                         Don&apos;t have an account?{" "}
                         <Link
-                            href="/signup"
+                            href={`/signup?redirect=${redirectTo}`}
                             className="text-primary hover:underline"
                         >
                             Sign up
