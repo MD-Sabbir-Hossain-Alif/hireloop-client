@@ -116,7 +116,7 @@ const ApplyPage = async ({ params }) => {
                                 account to unlock unlimited job submissions.
                             </p>
                             <Link
-                                href="/plans"
+                                href="/pricing"
                                 className="inline-block mt-2 sm:mt-0 whitespace-nowrap text-xs font-bold bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg transition"
                             >
                                 View Plans

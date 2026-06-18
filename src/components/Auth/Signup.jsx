@@ -18,10 +18,11 @@ const Register = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const redirectTo = searchParams.get("redirect") || "/";
-
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
+
+    const plan = formData.role === "seeker" ? "seeker_free" : "recruiter_free";
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,6 +37,7 @@ const Register = () => {
                 password: formData.password,
                 // callbackURL: "/dashboard", // optional
                 role: formData.role, // custom field for RBAC
+                plan,
             });
 
             if (signUpError) {
