@@ -8,27 +8,40 @@ import { Bars, Xmark } from "@gravity-ui/icons";
 import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
 
-const navLinks = [
-    {
-        label: "Browse Jobs",
-        href: "/jobs",
-    },
-    {
-        label: "Companies",
-        href: "/companies",
-    },
-    {
-        label: "Pricing",
-        href: "/pricing",
-    },
-];
-
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { data: session, isPending } = authClient.useSession();
     const user = session?.user;
 
     // console.log("user data:", user);
+
+    const navLinks = [
+        {
+            label: "Browse Jobs",
+            href: "/jobs",
+        },
+        {
+            label: "Companies",
+            href: "/companies",
+        },
+        {
+            label: "Pricing",
+            href: "/pricing",
+        },
+    ];
+
+    const dashboardLinks = {
+        seeker: "/dashboard/seeker",
+        recruiter: "/dashboard/recruiter",
+        admin: "/dashboard/admin",
+    };
+
+    if (user?.email) {
+        navLinks.push({
+            label: "Dashboard",
+            href: dashboardLinks[user?.role || "seeker"],
+        });
+    }
 
     return (
         <nav className="px-4">
