@@ -1,4 +1,4 @@
-import { serverFetch } from "../core/server";
+import { protectedFetch, serverFetch } from "../core/server";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
